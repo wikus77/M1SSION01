@@ -24,6 +24,7 @@ const Contacts = lazy(() => import("@/pages/Contacts"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
 const Terms = lazy(() => import("@/pages/Terms"));
+const AdminDashboard = lazy(() => import("@/pages/AdminDashboard"));
 
 const LoadingFallback = () => (
   <div className="min-h-screen bg-black flex items-center justify-center">
@@ -70,6 +71,7 @@ const AppRoutes: React.FC = () => {
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<Terms />} />
+<Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
