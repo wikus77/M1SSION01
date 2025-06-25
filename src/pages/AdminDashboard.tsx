@@ -1,4 +1,8 @@
+import { useSession } from "@/contexts/auth";
+import { isAdmin } from "@/utils/isAdmin";
+import { Navigate } from "react-router-dom";
 import React from "react";
+import { Navigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AdminPrizeManager from "@/components/admin/prizeManager/AdminPrizeManager";
@@ -7,6 +11,7 @@ import AdminEmailSender from "@/components/admin/AdminEmailSender";
 import AdminAppMessages from "@/components/admin/AdminAppMessages";
 
 const AdminDashboard: React.FC = () => {
+  if (!isAdmin) return <Navigate to="/access-denied" replace />;
   return (
     <div className="min-h-screen bg-black text-white p-4">
       <Tabs defaultValue="prizes" className="w-full">
