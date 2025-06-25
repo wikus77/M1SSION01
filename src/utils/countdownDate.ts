@@ -1,17 +1,21 @@
+const countdownTarget = new Date("2025-07-19T00:00:00Z");
 
-export const getMissionDeadline = (): Date => {
-  console.log("Getting mission deadline");
-  // Target date: 19 August 2025, 00:01 (Europe/Rome timezone)
-  return new Date(2025, 7, 19, 0, 1, 0); // Month is 0-indexed (7 = August)
-};
-
-// Calculate the remaining days consistently throughout the application
-export const getRemainingDays = (): number => {
-  const targetDate = getMissionDeadline();
+export function getCountdownValues() {
   const now = new Date();
-  const diff = targetDate.getTime() - now.getTime();
-  
-  if (diff <= 0) return 0;
-  
-  return Math.floor(diff / (1000 * 60 * 60 * 24));
-};
+  const distance = countdownTarget.getTime() - now.getTime();
+
+  if (distance <= 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((distance / (1000 * 60)) % 60);
+  const seconds = Math.floor((distance / 1000) % 60);
+
+  return { days, hours, minutes, seconds };
+}
+
+export function getTargetDate(): Date {
+  return countdownTarget;
+}
